@@ -1,6 +1,9 @@
-/**
- *Gravity Forms to Google Calendar
- *@Kira Davis
+/*
+ * Plugin Name: Boise State Gravity Forms to Google Calendar
+ * Plugin URI: https://webguide.boisestate.edu
+ * Description: a plugin designed to export entries from Gravity Forms to Google Calendar as events.
+ * Version: 0.1
+ * Author: Kira Davis & David Lentz
  */
  
 add_action("gform_post_submission_3", "post_submission", 10, 2);
