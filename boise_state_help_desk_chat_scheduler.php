@@ -43,7 +43,7 @@ date_default_timezone_set('America/Boise');
 		$location = 'http://oit.boisestate.edu/chat-support-is-closed';
 	}
 
-	echo "<br />Redirecting you to $location";
+	echo "<a href='$location'>Help Desk Chat Support</a>";
 }
 
 add_shortcode('boise_state_chat_schedule', 'boise_state_help_desk_chat_scheduler');
