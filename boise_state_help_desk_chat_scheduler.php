@@ -31,7 +31,7 @@ date_default_timezone_set('America/Boise');
 	$options_array = get_option(chat_schedule_options);
 	// This array is made of elements named like 'Mon_open' and 'Mon_close'
 	$openIndex = date('D') . "_open"; // Array element that holds today's opening time
-	$closeIndex = date('D') . "_close"; // Array element that holds today's closing time
+	$closeIndex = date('D') . "_closed"; // Array element that holds today's closing time
 	$openTime = $options_array[$openIndex];
 	$closeTime = $options_array[$closeIndex];
 
@@ -75,14 +75,14 @@ function chat_schedule_settings_init() {
 	);
 
 	add_settings_field(
-		'Mon_close', // as of WP 4.6 this value is used only internally
+		'Mon_closed', // as of WP 4.6 this value is used only internally
 		// use the $args label_for to populate the id inside the callback
 		__( 'Monday close', 'chat_schedule' ),
 		'settings_cb',
 		'chat_schedule',
 		'chat_schedule_options_section',
 		[
-			'label_for' => 'Mon_close',
+			'label_for' => 'Mon_closed',
 			'class' => 'chat_hours_row',
 			'chat_schedule_custom_data' => 'custom',
 		]
