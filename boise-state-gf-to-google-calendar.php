@@ -1,3 +1,4 @@
+<?php
 /*
  * Plugin Name: Boise State Gravity Forms to Google Calendar
  * Plugin URI: https://webguide.boisestate.edu
@@ -83,3 +84,4 @@ function post_submission($entry, $form) {
 	$event = $service->events->insert($calendarId, $myEvent);
 	printf('Event created: %s', $event->htmlLink);
 }	
+?>
