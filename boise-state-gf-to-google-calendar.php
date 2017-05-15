@@ -23,7 +23,7 @@ add_action($formAction, "post_submission", 10, 2); //add_action('gravityflow_wor
 // Form Submission - Taking Info from the Gravity Form, adding to Google Calendar
 //--------------------------------------------------------------------------------
 function post_submission($entry, $form) {
-	//try {
+	try {
 		require_once $_SERVER['DOCUMENT_ROOT'] . '/wp/wordpress/wp-content/plugins/boise-state-gf-to-google-calendar/google-api-php-client-2.1.3/vendor/autoload.php';
 		//require_once 'https://www.googleapis.com/calendar/v3/calendars/boisestate.edu_pr1pk32qsegav3dr56j56aeoa8@group.calendar.google.com/acl?key=AIzaSyB2-aUwiwZJqIjRHJloiJ0naD8QGutwIhY';
 
@@ -152,9 +152,9 @@ function post_submission($entry, $form) {
 		//printf('Event created: %s', $event->htmlLink); 
 		
 	// Error thrown when event is not added successfully.
-	//} catch (Exception $e) {
-	//	echo "Something went wrong. The event was not added to the calendar.";
-	//} 
+	} catch (Exception $e) {
+		echo "Something went wrong. The event was not added to the calendar.";
+	} 
 }	
 
 //-----------------------------------------------------
