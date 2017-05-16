@@ -200,18 +200,18 @@ function end_date_id_field() {
 }
 
 function display_theme_panel_fields() {
-	add_settings_section("cal-section", "Google Calendar IDs", null, "theme-options");
+	//add_settings_section("cal-section", "Google Calendar IDs", null, "theme-options");
 	add_settings_section("section", "Gravity Forms", null, "theme-options");
 	
 	/* Calendar Settings */
-	add_settings_field("calendar_id", "Promotions", "calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("ds_calendar_id", "Digital Signage", "ds_calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("dtt_calendar_id", "Digital Table Tents", "dtt_calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("idb_calendar_id", "Info Desk Backdrop", "idb_calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("okl_calendar_id", "Outdoor Kiosk Large", "okl_calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("oks_calendar_id", "Outdoor Kiosk Small", "oks_calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("pr_calendar_id", "Poster Route", "pr_calendar_id_field", "theme-options", "cal-section");
-	add_settings_field("tt_calendar_id", "Table Talk", "tt_calendar_id_field", "theme-options", "cal-section");
+	add_settings_field("calendar_id", "Promotions", "calendar_id_field", "theme-options", "section");
+	add_settings_field("ds_calendar_id", "Digital Signage", "ds_calendar_id_field", "theme-options", "section");
+	add_settings_field("dtt_calendar_id", "Digital Table Tents", "dtt_calendar_id_field", "theme-options", "section");
+	add_settings_field("idb_calendar_id", "Info Desk Backdrop", "idb_calendar_id_field", "theme-options", "section");
+	add_settings_field("okl_calendar_id", "Outdoor Kiosk Large", "okl_calendar_id_field", "theme-options", "section");
+	add_settings_field("oks_calendar_id", "Outdoor Kiosk Small", "oks_calendar_id_field", "theme-options", "section");
+	add_settings_field("pr_calendar_id", "Poster Route", "pr_calendar_id_field", "theme-options", "section");
+	add_settings_field("tt_calendar_id", "Table Talk", "tt_calendar_id_field", "theme-options", "section");
 		
 	/* Gravity Forms Setting */
 	add_settings_field("form_id", "Gravity Form ID", "form_id_field", "theme-options", "section");
@@ -222,21 +222,23 @@ function display_theme_panel_fields() {
 	add_settings_field("end_date_id", "End Date Field ID", "end_date_id_field", "theme-options", "section");
 
 	/* Register All Settings */
-	register_setting("cal-section", "calendar_id");
-	register_setting("cal-section", "tt_calendar_id");
-	register_setting("cal-section", "ds_calendar_id");
-	register_setting("cal-section", "dtt_calendar_id");
-	register_setting("cal-section", "idb_calendar_id");
-	register_setting("cal-section", "okl_calendar_id");
-	register_setting("cal-section", "oks_calendar_id");
-	register_setting("cal-section", "pr_calendar_id");
-	register_setting("cal-section", "tt_calendar_id");
- 	register_setting("section", "form_id");
+	register_setting("section", "calendar_id");
+	register_setting("section", "tt_calendar_id");
+	register_setting("section", "ds_calendar_id");
+	register_setting("section", "dtt_calendar_id");
+	register_setting("section", "idb_calendar_id");
+	register_setting("section", "okl_calendar_id");
+	register_setting("section", "oks_calendar_id");
+	register_setting("section", "pr_calendar_id");
+	register_setting("section", "tt_calendar_id");
+	register_setting("section", "form_id");
 	register_setting("section", "promotion_id");
 	register_setting("section", "name_id");
 	register_setting("section", "summary_id");
 	register_setting("section", "start_date_id");
 	register_setting("section", "end_date_id");
+	
+	// TODO: Remove this //add_settings_field("access_token", "Access Token", "access_token_field", "theme-options", "section"); //register_setting("section", "access_token");
 }
 
 add_action("admin_init", "display_theme_panel_fields");
@@ -259,10 +261,10 @@ function admin_settings_page_display() {
 		
 	    <form method="post" action="options.php">
 	        <?php
-			settings_fields("section");
-	        	settings_fields("cal-section");
-	        	do_settings_sections("theme-options");      
-	        	submit_button(); 
+				settings_fields("section");
+				//settings_fields("cal-section");
+				do_settings_sections("theme-options");      
+				submit_button(); 
 	        ?>          
 		</form>
 	</div>
