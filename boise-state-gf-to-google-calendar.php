@@ -25,7 +25,6 @@ add_action($formAction, "post_submission", 10, 2); //add_action('gravityflow_wor
 function post_submission($entry, $form) {
 	try {
 		require_once $_SERVER['DOCUMENT_ROOT'] . '/wp/wordpress/wp-content/plugins/boise-state-gf-to-google-calendar/google-api-php-client-2.1.3/vendor/autoload.php';
-		//require_once 'https://www.googleapis.com/calendar/v3/calendars/boisestate.edu_pr1pk32qsegav3dr56j56aeoa8@group.calendar.google.com/acl?key=AIzaSyB2-aUwiwZJqIjRHJloiJ0naD8QGutwIhY';
 
 		$promotion = $entry[get_option('promotion_id')];
 		$startDate = $entry[get_option('start_date_id')];
@@ -33,7 +32,7 @@ function post_submission($entry, $form) {
 		/* 
 		* Changes event values based on the type of promotion. 
 		* Writes to a different calendar based on promotion.
-		*/ 				//$myEvent->setColorId("3");
+		*/
 		switch($promotion) {
 			case 'digitalsignage':
 				$calendarId = get_option('ds_calendar_id');
@@ -90,7 +89,6 @@ function post_submission($entry, $form) {
 		$client->setApplicationName(APP_NAME);
 		$client->setScopes([SCOPE]);
 		
-		//$client->setAccessToken(get_option('access_token'));
 		$service = new Google_Service_Calendar($client);
 
 		$name = $entry[get_option('name_id')];
@@ -132,7 +130,6 @@ function post_submission($entry, $form) {
 		$myEvent = new Google_Service_Calendar_Event($myEventArray);
 
 		$event = $service->events->insert($calendarId, $myEvent);
-		//printf('Event created: %s', $event->htmlLink); 
 		
 	// Error thrown when event is not added successfully.
 	} catch (Exception $e) {
@@ -240,10 +237,6 @@ function display_theme_panel_fields() {
 	register_setting("section", "summary_id");
 	register_setting("section", "start_date_id");
 	register_setting("section", "end_date_id");
-	
-	// TODO: Remove this
-	//add_settings_field("access_token", "Access Token", "access_token_field", "theme-options", "section");
-	//register_setting("section", "access_token");
 }
 
 add_action("admin_init", "display_theme_panel_fields");
