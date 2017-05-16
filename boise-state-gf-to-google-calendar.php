@@ -12,7 +12,7 @@
 //--------------------------------------------------------------------------------
 function load_scripts() {
 	wp_enqueue_script( 'jquery' );
-    //wp_enqueue_script( 'date-picker-script', plugin_dir_url(__FILE__) . '/date-picker-script.js', array( 'jquery' ), '1.0.0', true );
+    wp_enqueue_script( 'date-picker-script', plugin_dir_url(__FILE__) . '/date-picker-script.js', array( 'jquery' ), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'load_scripts' );
 
@@ -32,47 +32,38 @@ function post_submission($entry, $form) {
 
 		/* 
 		* Changes event values based on the type of promotion. 
-		* Right now, using the default colors 1-7. 
-		* Color guide here: https://eduardopereira.pt/2012/06/google-calendar-api-v3-set-color-color-chart/
-		*/
+		* Writes to a different calendar based on promotion.
+		*/ 				//$myEvent->setColorId("3");
 		switch($promotion) {
 			case 'digitalsignage':
-				//$myEvent->setColorId("1");
 				$calendarId = get_option('ds_calendar_id');
 				$endDate = date('Y-m-d', strtotime($startDate. ' + 13 days'));
 				break;
 			case 'digitaltabletents':
-				//$myEvent->setColorId("2");
 				$calendarId = get_option('dtt_calendar_id');
 				$endDate = date('Y-m-d', strtotime($startDate. ' + 13 days'));
 				break;
 			case 'infodeskbackdrop':
-				//$myEvent->setColorId("3");
 				$calendarId = get_option('idb_calendar_id');
 				$endDate = date('Y-m-d', strtotime($startDate. ' + 13 days'));
 				break;
 			case 'outdoorkiosk':
-				//$myEvent->setColorId("4");
 				$calendarId = get_option('okl_calendar_id');
 				$endDate = date('Y-m-d', strtotime($startDate. ' + 13 days'));
 				break;
 			case 'outdoorkiosksmall':
-				//$myEvent->setColorId("4");
 				$calendarId = get_option('oks_calendar_id');
 				$endDate = date('Y-m-d', strtotime($startDate. ' + 13 days'));
 				break;
 			case 'posterroute':
-				//$myEvent->setColorId("5");
 				$calendarId = get_option('pr_calendar_id');
 				$endDate = $entry[get_option('end_date_id')];
 				break;
 			case 'toilettalk':
-				//$myEvent->setColorId("6");
 				$calendarId = get_option('tt_calendar_id');
 				$endDate = date('Y-m-d', strtotime($startDate. ' + 6 days'));
 				break;
-			default: 
-				//$myEvent->setColorId("7");
+			default:  
 				$calendarId = get_option('calendar_id');
 				$endDate = $entry[get_option('end_date_id')];
 		}
@@ -98,7 +89,6 @@ function post_submission($entry, $form) {
 		$client->setAuthConfig($credentials_file);
 		$client->setApplicationName(APP_NAME);
 		$client->setScopes([SCOPE]);
-		//$client->setAccessType("offline");
 		
 		//$client->setAccessToken(get_option('access_token'));
 		$service = new Google_Service_Calendar($client);
@@ -110,19 +100,12 @@ function post_submission($entry, $form) {
 		$startMonth = substr($startDate, 5, -3);
 		$startDay = substr($startDate, -2);
 		
-		/* Determine what end date is */
-		if ($promotion == "") {
-			$endDate = $entry[get_option('end_date_id')];
-		}
-		
 		$endYear = substr($endDate, 0, 4);
 		$endMonth = substr($endDate, 5, -3);
 		$endDay = substr($endDate, -2);
 		
 		/* 
-		* TODO: Find out why the date logic is off here?
-		* Start and end days are one off, they appear one day before. 
-		* (7th turns to 6th, etc.). Adding a +1 to each for now to fix this.
+		* Dates are one day behind, adding a +1 to each for now to fix this.
 		*/
 		$startTimestamp = mktime(0,0,0,$startMonth,$startDay + 1,$startYear);
 		$endTimestamp = mktime(0,0,0,$endMonth,$endDay + 1,$endYear);
@@ -153,7 +136,7 @@ function post_submission($entry, $form) {
 		
 	// Error thrown when event is not added successfully.
 	} catch (Exception $e) {
-		echo "Something went wrong. The event was not added to the calendar.";
+		echo $e->getMessage();
 	} 
 }	
 
@@ -220,10 +203,10 @@ function end_date_id_field() {
 }
 
 function display_theme_panel_fields() {
-	/* Calendar Settings */
-	add_settings_section("cal-section", "Google Calendar IDs", null, "theme-options");
+	 add_settings_section("cal-section", "Google Calendar IDs", null, "theme-options");
 	add_settings_section("section", "Gravity Forms", null, "theme-options");
 	
+	/* Calendar Settings */
 	add_settings_field("calendar_id", "Promotions", "calendar_id_field", "theme-options", "cal-section");
 	add_settings_field("ds_calendar_id", "Digital Signage", "ds_calendar_id_field", "theme-options", "cal-section");
 	add_settings_field("dtt_calendar_id", "Digital Table Tents", "dtt_calendar_id_field", "theme-options", "cal-section");
@@ -234,7 +217,7 @@ function display_theme_panel_fields() {
 	add_settings_field("tt_calendar_id", "Table Talk", "tt_calendar_id_field", "theme-options", "cal-section");
 		
 	/* Gravity Forms Setting */
-    	add_settings_field("form_id", "Gravity Form ID", "form_id_field", "theme-options", "section");
+    add_settings_field("form_id", "Gravity Form ID", "form_id_field", "theme-options", "section");
 	add_settings_field("promotion_id", "Promotions Field ID", "promotion_id_field", "theme-options", "section");
 	add_settings_field("name_id", "Event Name Field ID", "name_id_field", "theme-options", "section");
 	add_settings_field("summary_id", "Description Field ID", "summary_id_field", "theme-options", "section");
@@ -251,13 +234,16 @@ function display_theme_panel_fields() {
 	register_setting("cal-section", "oks_calendar_id");
 	register_setting("cal-section", "pr_calendar_id");
 	register_setting("cal-section", "tt_calendar_id");
-    	register_setting("section", "form_id");
+    register_setting("section", "form_id");
 	register_setting("section", "promotion_id");
 	register_setting("section", "name_id");
 	register_setting("section", "summary_id");
 	register_setting("section", "start_date_id");
 	register_setting("section", "end_date_id");
 	
+	// TODO: Remove this
+	//add_settings_field("access_token", "Access Token", "access_token_field", "theme-options", "section");
+	//register_setting("section", "access_token");
 }
 
 add_action("admin_init", "display_theme_panel_fields");
@@ -271,15 +257,13 @@ function admin_settings_page_display() {
 		wp_die('You do not have sufficient permissions to access this page.');
 	}
  
-	// add error/update messages
- 
-	// check if the user have submitted the settings
-	// wordpress will add the "settings-updated" $_GET parameter to the url
- 
-	// show error/update messages
     ?>
 	    <div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		
+		<!-- show error/update messages -->
+		<?php settings_errors(); ?>
+		
 	    <form method="post" action="options.php">
 	        <?php
 				settings_fields("section");
