@@ -17,7 +17,7 @@ function load_scripts() {
 add_action( 'wp_enqueue_scripts', 'load_scripts' );
 
 $formAction = "gform_post_submission_" . get_option('form_id');
-add_action($formAction, "post_submission", 10, 2); //add_action('gravityflow_workflow_complete', 'post_submission', 10, 3);
+add_action($formAction, "post_submission", 10, 2);
 
 //--------------------------------------------------------------------------------
 // Form Submission - Taking Info from the Gravity Form, adding to Google Calendar
