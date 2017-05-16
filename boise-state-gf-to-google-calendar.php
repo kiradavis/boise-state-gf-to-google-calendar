@@ -200,7 +200,7 @@ function end_date_id_field() {
 }
 
 function display_theme_panel_fields() {
-	 add_settings_section("cal-section", "Google Calendar IDs", null, "theme-options");
+	add_settings_section("cal-section", "Google Calendar IDs", null, "theme-options");
 	add_settings_section("section", "Gravity Forms", null, "theme-options");
 	
 	/* Calendar Settings */
