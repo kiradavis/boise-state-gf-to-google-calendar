@@ -24,7 +24,7 @@ add_action($formAction, "post_submission", 10, 2);
 //--------------------------------------------------------------------------------
 function post_submission($entry, $form) {
 	try {
-		require_once $_SERVER['DOCUMENT_ROOT'] . '/wp/wordpress/wp-content/plugins/boise-state-gf-to-google-calendar/google-api-php-client-2.1.3/vendor/autoload.php';
+		require_once plugin_dir_path(__FILE__) . '/google-api-php-client-2.1.3/vendor/autoload.php';
 
 		$promotion = $entry[get_option('promotion_id')];
 		$startDate = $entry[get_option('start_date_id')];
@@ -81,7 +81,7 @@ function post_submission($entry, $form) {
 		*
 		* This solution was found at: https://github.com/google/google-auth-library-php
 		*/
-		$path = 'GOOGLE_APPLICATION_CREDENTIALS=' . $_SERVER['DOCUMENT_ROOT'] . '/wp/wordpress/wp-content/plugins/boise-state-gf-to-google-calendar/MyProject-b2a8b2440207.json';
+		$path = 'GOOGLE_APPLICATION_CREDENTIALS=' . plugin_dir_path(__FILE__) . 'MyProject-b2a8b2440207.json';
 		putenv($path);
 		$client->useApplicationDefaultCredentials();
 			
