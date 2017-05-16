@@ -12,7 +12,7 @@
 //--------------------------------------------------------------------------------
 function load_scripts() {
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'date-picker-script', plugin_dir_url(__FILE__) . '/date-picker-script.js', array( 'jquery' ), '1.0.0', true );
+	//wp_enqueue_script( 'date-picker-script', plugin_dir_url(__FILE__) . '/date-picker-script.js', array( 'jquery' ), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'load_scripts' );
 
