@@ -12,7 +12,7 @@
 //--------------------------------------------------------------------------------
 function load_scripts() {
 	wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'date-picker-script', plugin_dir_url(__FILE__) . '/date-picker-script.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'date-picker-script', plugin_dir_url(__FILE__) . '/date-picker-script.js', array( 'jquery' ), '1.0.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'load_scripts' );
 
@@ -121,12 +121,12 @@ function post_submission($entry, $form) {
 		);
 
 		$myEventArray = array(
-				'summary' => $name,
-				'location' => 'Boise State University',
-				'description' => $summary,
-				'start' => $start,
-				'end' => $end,
-				'color' => 11,
+			'summary' => $name,
+			'location' => 'Boise State University',
+			'description' => $summary,
+			'start' => $start,
+			'end' => $end,
+			'color' => 11,
 		);
 
 		$myEvent = new Google_Service_Calendar_Event($myEventArray);
@@ -217,7 +217,7 @@ function display_theme_panel_fields() {
 	add_settings_field("tt_calendar_id", "Table Talk", "tt_calendar_id_field", "theme-options", "cal-section");
 		
 	/* Gravity Forms Setting */
-    add_settings_field("form_id", "Gravity Form ID", "form_id_field", "theme-options", "section");
+	add_settings_field("form_id", "Gravity Form ID", "form_id_field", "theme-options", "section");
 	add_settings_field("promotion_id", "Promotions Field ID", "promotion_id_field", "theme-options", "section");
 	add_settings_field("name_id", "Event Name Field ID", "name_id_field", "theme-options", "section");
 	add_settings_field("summary_id", "Description Field ID", "summary_id_field", "theme-options", "section");
@@ -234,7 +234,7 @@ function display_theme_panel_fields() {
 	register_setting("cal-section", "oks_calendar_id");
 	register_setting("cal-section", "pr_calendar_id");
 	register_setting("cal-section", "tt_calendar_id");
-    register_setting("section", "form_id");
+ 	register_setting("section", "form_id");
 	register_setting("section", "promotion_id");
 	register_setting("section", "name_id");
 	register_setting("section", "summary_id");
@@ -257,22 +257,22 @@ function admin_settings_page_display() {
 		wp_die('You do not have sufficient permissions to access this page.');
 	}
  
-    ?>
-	    <div class="wrap">
-		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+	?>
+	<div class="wrap">
+	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 		
 		<!-- show error/update messages -->
 		<?php settings_errors(); ?>
 		
 	    <form method="post" action="options.php">
 	        <?php
-				settings_fields("section");
-	            settings_fields("cal-section");
-	            do_settings_sections("theme-options");      
-	            submit_button(); 
+			settings_fields("section");
+	        	settings_fields("cal-section");
+	        	do_settings_sections("theme-options");      
+	        	submit_button(); 
 	        ?>          
-	    </form>
-		</div>
+		</form>
+	</div>
 	<?php
 }
 ?>
