@@ -4,7 +4,7 @@ OVERVIEW:
 Exports Gravity Form entries into a Google Calendar.
 
 PROGRAM DESIGN AND IMPORTANT CONCEPTS:
-First, the program requires the Google Calendar API and authenticates.
+This program requires access to the Google Calendar API.
 The authentication credentials come from a file that I generated under a Google API Service Account here:
 https://console.developers.google.com/iam-admin/serviceaccounts/
 
