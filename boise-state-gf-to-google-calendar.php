@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) or die( 'No hackers' );
 // Updater
 
 if( ! class_exists( 'Boise_State_Gc_Updater' ) ){
- include_once( plugin_dir_path( __FILE__ ) . 'updater.php' );
+ include_once( plugin_dir_path( __FILE__ ) . 'gf-to-gc-updater.php' );
 }
 
 $updater = new Boise_State_Gc_Updater( __FILE__ );
