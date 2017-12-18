@@ -30,6 +30,7 @@ add_action($formAction, "boise_state_post_submission", 10, 2); //add_action('gra
 
 function boise_state_post_submission($entry, $form) {
 	try {
+		// This can be downloaded from here: https://github.com/google/google-api-php-client/releases
 		require_once plugin_dir_path(__FILE__) . '/google-api-php-client-2.1.3/vendor/autoload.php';
 
 		$promotion = $entry[get_option('promotion_id')];
